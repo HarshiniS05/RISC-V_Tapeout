@@ -30,15 +30,24 @@ This first week was all about preparation—building the digital workbench where
 | **OpenLane** | The builder. It automates the entire physical design process, from placing components to connecting wires. |
 | **Magic VLSI** | The artist. It's the final stop for fine-tuning the physical layout before it's ready for fabrication. |
 
-### **Proof of Concept: Verifying My Tools**
 
-\<div align="center"\>
-\<img src="[https://raw.githubusercontent.com/HarshiniS05/RISC-V\_Tapeout/main/Week%201/images/yosys.png](https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/yosys.png)" width="300" alt="Yosys Version Check"\>
-\<img src="[https://raw.githubusercontent.com/HarshiniS05/RISC-V\_Tapeout/main/Week%201/images/iverilog.png](https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/iverilog.png)" width="300" alt="Iverilog Version Check"\>
-\<img src="[https://raw.githubusercontent.com/HarshiniS05/RISC-V\_Tapeout/main/Week%201/images/gtkwave.png](https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/gtkwave.png)" width="300" alt="GTKWave Launch"\>
-\<img src="[https://raw.githubusercontent.com/HarshiniS05/RISC-V\_Tapeout/main/Week%201/images/ngspice.png](https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/ngspice.png)" width="300" alt="Ngspice Version Check"\>
-\<img src="[https://raw.githubusercontent.com/HarshiniS05/RISC-V\_Tapeout/main/Week%201/images/magic.png](https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/magic.png)" width="300" alt="Magic GUI"\>
-\</div\>
+
+### Proof of Concept: Verifying My Tools
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/yosys.png" width="300" alt="Yosys Version Check">
+<img src="https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/iverilog.png" width="300" alt="Iverilog Version Check">
+<img src="https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/gtkwave.png" width="300" alt="GTKWave Launch">
+<img src="https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/ngspice.png" width="300" alt="Ngspice Version Check">
+<img src="https://raw.githubusercontent.com/HarshiniS05/RISC-V_Tapeout/main/Week%201/images/magic.png" width="300" alt="Magic GUI">
+</div>
+
+---
+
+<div align="center">
+<br>
+I'm excited to dive into the next phase: RTL design! Follow my journey as I transform my first idea into a tangible design.
+</div>
 
 -----
 
