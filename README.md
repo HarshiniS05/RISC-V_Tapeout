@@ -2,7 +2,7 @@
 
 -----
 
-# 🚀 The Silicon Logbook: My RISC-V Tapeout Adventure
+# 🚀  My RISC-V Tapeout Logbook
 
 
 
@@ -51,12 +51,4 @@ I'm excited to dive into the next phase: RTL design! Follow my journey as I tran
 
 -----
 
-## 💡 What's Next?
 
-\<div align="center"\>
-
-
-\<br\>
-I'm excited to dive into the next phase: **RTL design\!** Follow my journey as I transform my first idea into a tangible design.
-
-\</div\>
