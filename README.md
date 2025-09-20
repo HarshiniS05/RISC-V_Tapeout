@@ -1,18 +1,12 @@
-Thank you for providing the links. I've corrected them for you and incorporated them into a complete `README.md` file.
 
-The links you provided are for the GitHub webpage view, not the "raw" image data. I've converted them to the correct raw URL format so they will display properly in your `README.md`.
-
-Here is the complete, corrected `README.md` content. You can copy and paste this directly into your file.
 
 -----
 
 # 🚀 The Silicon Logbook: My RISC-V Tapeout Adventure
 
-\<div align="center"\>
 
-\</div\>
 
-Welcome\! This is my personal logbook for the **RISC-V Reference SoC Tapeout Program**, an incredible initiative by VSD to design a System-on-Chip from scratch. I'll be documenting my week-by-week progress, challenges, and key learnings here.
+Welcome! This is my personal logbook for the **RISC-V Reference SoC Tapeout Program**, an incredible initiative by VSD to design a System-on-Chip from scratch. I'll be documenting my week-by-week progress, challenges, and key learnings here.
 
 -----
 
