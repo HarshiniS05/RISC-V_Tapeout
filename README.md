@@ -46,7 +46,6 @@ This first week was all about preparation—building the digital workbench where
 
 \<div align="center"\>
 
-\<img src="[https://via.placeholder.com/150x50.png?text=Week%201%20Task](https://via.placeholder.com/150x50.png?text=Week%201%20Task)" alt="Week 1 task placeholder"\>
 
 \<br\>
 I'm excited to dive into the next phase: **RTL design\!** Follow my journey as I transform my first idea into a tangible design.
