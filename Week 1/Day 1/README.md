@@ -1,3 +1,13 @@
+# Week 1 - Day 1
+
+## 0. Setup
+
+Before starting with simulation and synthesis, I created a separate folder named **`VLSI`** to store all necessary libraries and reference Verilog codes.  
+
+Then, I cloned the following GitHub repository which contains the Sky130 libraries and design files:  
+
+```bash
+git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop
 
 ---
 
