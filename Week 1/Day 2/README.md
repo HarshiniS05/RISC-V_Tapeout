@@ -1,8 +1,3 @@
-
-
----
-
-````markdown
 # Week 1 - Day 2
 
 ## 1. Library Files (`.lib`)
@@ -15,22 +10,20 @@ It contains information about:
 ### Command to Open `.lib` File:
 ```bash
 gedit path/to/library.lib
-````
-```markdown
-![dot lib](images/dot_lib.png)
 ```
+
+![dot lib](images/dot_lib.png)
+
 ---
 
 ## 2. Hierarchical vs Flat Synthesis
 
 * **Hierarchical Synthesis**
-
   * Maintains the module hierarchy of the design.
   * Easier to understand and debug.
   * Preferred when multiple instances of the same module are used.
 
 * **Flat Synthesis**
-
   * Flattens the hierarchy into a single module.
   * May optimize better, but harder to debug.
 
@@ -42,7 +35,6 @@ gedit path/to/library.lib
 
 ```bash
 gedit multiple_modules.v
-![multiple module code](images/multiple_module_code.png)
 yosys
 read_liberty -lib path/to/library.lib
 read_verilog multiple_modules.v
@@ -51,10 +43,8 @@ abc -liberty path/to/library.lib
 show
 ```
 
-
-```markdown
+![multiple module code](images/multiple_module_code.png)  
 ![synth output](images/multiple_module_u12.png)
-```
 
 Generate netlist:
 
@@ -63,10 +53,7 @@ write_verilog multiple_modules_hier.v
 !gedit multiple_modules_hier.v
 ```
 
-
-```markdown
 ![Hierarchical Netlist File](images/netlist_multiple_module_hierv.png)
-```
 
 ---
 
@@ -80,10 +67,7 @@ flatten
 show
 ```
 
-
-```markdown
 ![synth Flat](images/mm_flatten_show.png)
-```
 
 ---
 
@@ -104,11 +88,7 @@ abc -liberty path/to/library.lib
 show
 ```
 
-
-
-```markdown
-![ Synth-Submodule ](images/mm_submodule1.png)
-```
+![Synth-Submodule](images/mm_submodule1.png)
 
 ---
 
@@ -119,7 +99,7 @@ show
 * Pure combinational circuits create glitches.
 * A **flip-flop** stores values and avoids glitches.
 
-If not initialized → circuit may evaluate to garbage.
+If not initialized → circuit may evaluate to garbage.  
 Hence, we use **set** or **reset** signals.
 
 * **Asynchronous reset** → reset occurs immediately, independent of clock.
@@ -135,10 +115,7 @@ iverilog dff_asyncres.v tb_dff_asyncres.v
 gtkwave tb_dff_asyncres.vcd
 ```
 
-
-```markdown
 ![DFF Async Reset Waveform](images/tb_dff_asyncres.png)
-```
 
 Synthesis:
 
@@ -152,10 +129,7 @@ abc -liberty path/to/library.lib
 show
 ```
 
-
-```markdown
 ![DFF Async Reset Synth](images/dsynth_dff_asyncres.png)
-```
 
 ---
 
@@ -167,10 +141,7 @@ iverilog dff_async_set.v tb_dff_async_set.v
 gtkwave tb_dff_async_set.vcd
 ```
 
-
-```markdown
 ![DFF Async Set Waveform](images/tb_dff_async_set.png)
-```
 
 Synthesis:
 
@@ -184,10 +155,7 @@ abc -liberty path/to/library.lib
 show
 ```
 
-
-```markdown
 ![DFF Async Set Netlist](images/synth_dff-async_set.png)
-```
 
 ---
 
@@ -199,11 +167,7 @@ iverilog dff_syncres.v tb_dff_syncres.v
 gtkwave tb_dff_syncres.vcd
 ```
 
-
-
-```markdown
 ![DFF Sync Reset Waveform](images/tb_dff_syncres.png)
-```
 
 Synthesis:
 
@@ -217,14 +181,7 @@ abc -liberty path/to/library.lib
 show
 ```
 
-
-
-```markdown
 ![DFF Sync Reset Netlist](images/synth_dff_syncres.png)
-```
 
 ---
-
-
-
 
