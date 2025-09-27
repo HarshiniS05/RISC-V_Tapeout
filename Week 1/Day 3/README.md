@@ -28,12 +28,12 @@ Combinational optimization tries to **squeeze the logic** for minimal resources.
 #### Example 1: Constant Propagation
 
 📷 Example Output
-![Constant Propagation](images/opt_check.v.png)
+![Constant Propagation](images/const_pro_eg.png)
 
 #### Example 2: Boolean Logic Optimization
 
 📷 Example Output
-![Boolean Optimization](images/tb_opt_check.png)
+![Boolean Optimization](images/bool_opt.png)
 
 ---
 
@@ -46,12 +46,6 @@ Sequential optimization improves registers and FSM designs.
 * **Basic** → Sequential constant propagation
 * **Advanced** → State optimization, retiming, sequential logic cloning
 
-📷 Example Outputs
-![Stat DFF1](images/stat_dff1.png)
-![Stat DFF2](images/stat_dff2.png)
-![Stat DFF3](images/stat_dff3.png)
-![Stat DFF4](images/stat_dff4.png)
-![Stat DFF5](images/stat_dff5.png)
 
 ---
 
@@ -229,5 +223,5 @@ endmodule
 
 ---
 
-Would you like me to **add a “Folder Structure” section** at the top (showing `src/`, `tb/`, `images/`, `lib/`)? That makes your repo much more professional.
+
 
