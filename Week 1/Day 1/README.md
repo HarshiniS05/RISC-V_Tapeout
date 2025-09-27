@@ -11,7 +11,7 @@ git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop
 
 ---
 
-````markdown
+
 # Week 1 - Day 1
 
 ## 1. Tools Used
