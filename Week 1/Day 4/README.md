@@ -89,7 +89,7 @@ iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
 gtkwave ternary_operator_mux.vcd
 ```
 
-![description](images/your_image.png)
+![testbench rtl](images/ternary_tb.png)
 
 
 ---
@@ -108,7 +108,7 @@ show
 exit
 ```
 
-![description](images/your_image.png)
+![synthesis output](images/synth_ternary.png)
 
 
 ---
@@ -123,8 +123,7 @@ iverilog /home/harshini/VLSI/sky130RTLDesignAndSynthesisWorkshop/my_lib/verilog_
 gtkwave tb_ternary_operator_mux.vcd
 ```
 
-![description](images/your_image.png)
-
+![netlist testbench](images/tb_ternary1.png)
 ---
 ## 🔹 Example: Synthesis-Simulation Mismatch
 
