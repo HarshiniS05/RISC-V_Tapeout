@@ -133,7 +133,9 @@ gtkwave tb_dff_asyncres.vcd
 ```
 
 ![DFF Async Reset Waveform](images/tb_dff_asyncres.png)  
-*Waveform of DFF with async reset.Normal Operation (without reset):
+*Waveform of DFF with async reset.Normal Operation (without reset):*
+
+__Normal Operation (without reset):__
 
 When the reset signal is inactive and goes low well before a clock edge, the flip-flop does not immediately follow the input D.
 
@@ -141,13 +143,13 @@ For example, even though D goes high, the output Q waits until the next rising e
 
 This shows that Q is synchronized with the clock—although D can change anytime, Q only updates on the active clock edge.
 
-Asynchronous Reset Behavior:
+__Asynchronous Reset Behavior:__
 
 Consider the case when, during the previous rising clock edge, D = 1, so Q = 1.
 
 The moment the reset is asserted (goes low), the output Q immediately drops to 0, without waiting for the next clock edge.
 
-This confirms that the asynchronous reset overrides the clock and forces Q low instantly, independent of the clock signal.*
+This confirms that the asynchronous reset overrides the clock and forces Q low instantly, independent of the clock signal.
 
 Synthesis:
 ```bash
@@ -173,15 +175,14 @@ gtkwave tb_dff_async_set.vcd
 ```
 
 ![DFF Async Set Waveform](images/tb_dff_async_set.png)  
-*From the waveform, we can observe the following behavior:
+*From the waveform, we can observe the following behavior:*
 
-Normal Operation (without set):
-
+__Normal Operation (without set):__
 When the asynchronous set is inactive, the flip-flop behaves like a regular D flip-flop.
 
 The output Q only updates on the rising edge of the clock and follows the value of D at that clock edge.
 
-Asynchronous Set Behavior:
+__Asynchronous Set Behavior:__
 
 The moment the set signal is asserted (goes high), the output Q immediately becomes 1, regardless of the clock or the value of D.
 
@@ -213,13 +214,13 @@ gtkwave tb_dff_syncres.vcd
 ```
 
 ![DFF Sync Reset Waveform](images/tb_dff_syncres.png) 
-*Normal Operation (without reset):
+ __Normal Operation (without reset):__
 
 When the synchronous reset is inactive, the flip-flop behaves like a regular D flip-flop.
 
 The output Q updates only on the rising edge of the clock and follows the value of D at that edge.
 
-Synchronous Reset Behavior:
+__Synchronous Reset Behavior:__
 
 When the reset signal goes high, the output Q does not immediately go low (unlike asynchronous reset).
 
@@ -227,7 +228,7 @@ Instead, Q waits until the next rising edge of the clock to go low.
 
 At that clock edge, the reset condition takes precedence over D, so the output is forced to 0.
 
-After reset is deasserted (goes low), the flip-flop resumes normal operation, and Q once again follows D only at clock edges.* 
+After reset is deasserted (goes low), the flip-flop resumes normal operation, and Q once again follows D only at clock edges. 
 
 Synthesis:
 ```bash
