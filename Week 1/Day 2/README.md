@@ -25,7 +25,7 @@ It contains information about:
 
 ### Command to Open `.lib` File:
 ```bash
-gedit path/to/library.lib
+gedit /home/harshini/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 ```
 
 ![dot lib](images/dot_lib.png)  
@@ -71,7 +71,7 @@ write_verilog multiple_modules_hier.v
 ```
 
 ![Hierarchical Netlist File](images/netlist_multiple_module_hierv.png)  
-*Netlist of the hierarchical design.*
+*Netlist of the hierarchical design it has a sub module.*
 
 ---
 
@@ -86,7 +86,7 @@ show
 ```
 
 ![synth Flat](images/mm_flatten_show.png)  
-*Netlist output after flattening the design.*
+*Netlist output after flattening the design which does not have the u1 &u2 submodule .*
 
 ---
 
@@ -107,7 +107,7 @@ show
 ```
 
 ![Synth-Submodule](images/mm_submodule1.png)  
-*Synthesis at submodule level.*
+*Synthesis at submodule level and it's netlist.*
 
 ---
 
@@ -133,7 +133,21 @@ gtkwave tb_dff_asyncres.vcd
 ```
 
 ![DFF Async Reset Waveform](images/tb_dff_asyncres.png)  
-*Waveform of DFF with async reset.*
+*Waveform of DFF with async reset.Normal Operation (without reset):
+
+When the reset signal is inactive and goes low well before a clock edge, the flip-flop does not immediately follow the input D.
+
+For example, even though D goes high, the output Q waits until the next rising edge of the clock to transition to high.
+
+This shows that Q is synchronized with the clock—although D can change anytime, Q only updates on the active clock edge.
+
+Asynchronous Reset Behavior:
+
+Consider the case when, during the previous rising clock edge, D = 1, so Q = 1.
+
+The moment the reset is asserted (goes low), the output Q immediately drops to 0, without waiting for the next clock edge.
+
+This confirms that the asynchronous reset overrides the clock and forces Q low instantly, independent of the clock signal.*
 
 Synthesis:
 ```bash
@@ -159,7 +173,21 @@ gtkwave tb_dff_async_set.vcd
 ```
 
 ![DFF Async Set Waveform](images/tb_dff_async_set.png)  
+*From the waveform, we can observe the following behavior:
 
+Normal Operation (without set):
+
+When the asynchronous set is inactive, the flip-flop behaves like a regular D flip-flop.
+
+The output Q only updates on the rising edge of the clock and follows the value of D at that clock edge.
+
+Asynchronous Set Behavior:
+
+The moment the set signal is asserted (goes high), the output Q immediately becomes 1, regardless of the clock or the value of D.
+
+While the set signal remains active, Q stays fixed at 1 and ignores any changes in D or the clock.
+
+Once the set signal is deasserted (goes low), the flip-flop resumes normal operation, and Q again follows D only at the rising edges of the clock.*
 Synthesis:
 ```bash
 yosys
@@ -173,6 +201,7 @@ show
 
 ![DFF Async Set Netlist](images/synth_dff-async_set.png)
 
+
 ---
 
 ### Example 3: D Flip-Flop with Synchronous Reset
@@ -183,7 +212,22 @@ iverilog dff_syncres.v tb_dff_syncres.v
 gtkwave tb_dff_syncres.vcd
 ```
 
-![DFF Sync Reset Waveform](images/tb_dff_syncres.png)  
+![DFF Sync Reset Waveform](images/tb_dff_syncres.png) 
+*Normal Operation (without reset):
+
+When the synchronous reset is inactive, the flip-flop behaves like a regular D flip-flop.
+
+The output Q updates only on the rising edge of the clock and follows the value of D at that edge.
+
+Synchronous Reset Behavior:
+
+When the reset signal goes high, the output Q does not immediately go low (unlike asynchronous reset).
+
+Instead, Q waits until the next rising edge of the clock to go low.
+
+At that clock edge, the reset condition takes precedence over D, so the output is forced to 0.
+
+After reset is deasserted (goes low), the flip-flop resumes normal operation, and Q once again follows D only at clock edges.* 
 
 Synthesis:
 ```bash
