@@ -8,7 +8,7 @@ Then, I cloned the following GitHub repository which contains the Sky130 librari
 
 ```bash
 git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop
-
+```
 ---
 
 
