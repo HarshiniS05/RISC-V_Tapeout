@@ -328,5 +328,102 @@ show
 
 
 ---
+🔹 FOR vs FOR-GENERATE Loops
+1. FOR Loop
+
+Used inside always blocks.
+
+Executes during simulation time, not instantiation.
+
+2. FOR-GENERATE Loop
+
+Used outside always blocks.
+
+Instantiates multiple hardware blocks during synthesis/elaboration.
+
+##Example
+##MUX
+code:
+```
+module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
+wire [3:0] i_int;
+assign i_int = {i3,i2,i1,i0};
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 4; k=k+1) begin
+	if(k == sel)
+		y = i_int[k];
+end
+end
+endmodule
+```
+##Simulation output:
+![rtl_testbench](images/mux_generate_tb.png)
+##Synthesis output:
+![synthesis output](images/synth-muxgen.png)
+**It generate 4x1 MUX**
+---
+##DEMUX
+code:
+```
+module demux_case (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+	case(sel)
+		3'b000 : y_int[0] = i;
+		3'b001 : y_int[1] = i;
+		3'b010 : y_int[2] = i;
+		3'b011 : y_int[3] = i;
+		3'b100 : y_int[4] = i;
+		3'b101 : y_int[5] = i;
+		3'b110 : y_int[6] = i;
+		3'b111 : y_int[7] = i;
+	endcase
+
+end
+endmodule
+
+
+```
+##Simulation output:
+![rtl_testbench](images/demux_case.png)
+##Synthesis output:
+![synthesis output](images/synth_demuxcase.png)
+---
+code:
+```
+module demux_generate (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+for(k = 0; k < 8; k++) begin
+	if(k == sel)
+		y_int[k] = i;
+end
+end
+endmodule
+
+
+
+
+```
+##Simulation output:
+![rtl_testbench](images/tb_demuxgen.png)
+##Synthesis output:
+![synthesis output](images/synth_demuxgen.png)
+---
+
+
+
+
+
 
 
