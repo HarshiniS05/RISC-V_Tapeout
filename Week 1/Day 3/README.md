@@ -1,75 +1,98 @@
 
 
+````markdown
 ---
 
 # Day 3: Combinational and Sequential Optimization
 
 ## 📌 Introduction
 
-In digital design, optimization is crucial for reducing **area, power, and delay** while maintaining correct functionality.
+In digital design, optimization is crucial for reducing **area, power, and delay** while maintaining correct functionality.  
 This day focuses on:
 
 * **Combinational Logic Optimization**
 * **Sequential Logic Optimization**
 
-Both are applied during **logic synthesis** using **Yosys** with the Sky130 standard cell library.
+Both are applied during **logic synthesis** using **Yosys** with the Sky130 standard cell library.  
+
+**Goal of optimization:**  
+* Minimize resource usage (gates, flip-flops)  
+* Improve timing (reduce critical path)  
+* Reduce power consumption  
+* Maintain functional correctness
 
 ---
 
 ## 🔹 Combinational Logic Optimization
 
-Combinational optimization tries to **squeeze the logic** for minimal resources.
+Combinational optimization aims to **reduce redundant logic** and simplify Boolean expressions for minimal hardware usage.
 
 ### ✨ Techniques Used:
 
-* **Constant Propagation** → Direct optimization by replacing constants.
-* **Boolean Logic Optimization** → Techniques like K-Map simplification and Quine-McCluskey.
+* **Constant Propagation** → Replaces constant signals in expressions to simplify logic.
+* **Boolean Logic Optimization** → Simplifies expressions using K-Map, Quine-McCluskey, or synthesis algorithms in Yosys.
+
+### Why It Matters:
+
+* Reduces **area** by minimizing gates  
+* Reduces **delay** by eliminating unnecessary logic levels  
+* Reduces **power** consumption by decreasing switching activity  
 
 #### Example 1: Constant Propagation
 
-📷 Example Output
+📷 Example Output  
 ![Constant Propagation](images/const_pro_eg.png)
+
+**Observation:** The constant logic is replaced, reducing gate count.  
 
 #### Example 2: Boolean Logic Optimization
 
-📷 Example Output
+📷 Example Output  
 ![Boolean Optimization](images/bool_opt.png)
+
+**Observation:** Simplified Boolean expression leads to a smaller netlist and faster execution.
 
 ---
 
 ## 🔹 Sequential Logic Optimization
 
-Sequential optimization improves registers and FSM designs.
+Sequential optimization improves **register usage, FSM designs, and pipelining**.  
 
 ### Types:
 
-* **Basic** → Sequential constant propagation
-* **Advanced** → State optimization, retiming, sequential logic cloning
+* **Basic** → Sequential constant propagation  
+* **Advanced** → State optimization, retiming, sequential logic cloning  
 
+### Benefits:
+
+* Reduces flip-flop count  
+* Improves performance by **minimizing critical path** through retiming  
+* Reduces area and power  
 
 ---
 
 ## 🔹 Modules and Results
 
-### 1️⃣ opt_check.v
+### 1️⃣ `opt_check.v`
 
 ```verilog
 module opt_check (input a , input b , output y);
 	assign y = a?b:0;
 endmodule
-```
+````
 
-**Aim:**
-![Aim](images/aim_optcheck.png)
-**Simulation Commands**
-```tcl
+**Objective:** Optimize simple conditional logic.
+
+**Simulation Commands:**
+
+```bash
 iverilog opt_check.v tb_opt_check.v
 ./a.out
 gtkwave tb_opt_check.vcd
-
 ```
-![Sim Opt Check](images/tb_opt_check.png)
 
+📷 Simulation Output:
+![Sim Opt Check](images/tb_opt_check.png)
 
 **Synthesis Commands:**
 
@@ -83,13 +106,13 @@ abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt
 show
 ```
 
-📷 Synthesized Netlist
+📷 Synthesized Netlist:
 ![Synth Opt Check](images/synth_opt_check.png)
-*Synthesis produce a AND gate*
+*Observation: Synthesis produced a single AND gate, minimizing resources.*
 
 ---
 
-### 2️⃣ opt_check2.v
+### 2️⃣ `opt_check2.v`
 
 ```verilog
 module opt_check2 (input a , input b , output y);
@@ -97,25 +120,16 @@ module opt_check2 (input a , input b , output y);
 endmodule
 ```
 
-**Aim:**
-📷 ![Aim](images/aim_optcheck2.png)
+**Observation:** Conditional assignment with constants triggers logic simplification.
 
-
-**Synthesis Commands:** 
-```tcl
-yosys
-read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-read_verilog opt_check2.v
-synth -top opt_check2
-opt_clean -purge
-abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-show
-```
+**Synthesis Output:** OR gate
 ![Synth Opt Check](images/synth_opt_check2.png)
-*Synthesis produce a OR gate*
+
+**Takeaway:** Constant propagation and Boolean optimization reduce combinational complexity.
+
 ---
 
-### 3️⃣ opt_check3.v
+### 3️⃣ `opt_check3.v`
 
 ```verilog
 module opt_check3 (input a , input b, input c , output y);
@@ -123,25 +137,14 @@ module opt_check3 (input a , input b, input c , output y);
 endmodule
 ```
 
-**Aim:**
-📷 ![Aim](images/aim_optcheck3.png)
+**Observation:** Nested conditions are simplified.
 
-**Synthesis Commands:** 
-```tcl
-yosys
-read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-read_verilog opt_check3.v
-synth -top opt_check3
-opt_clean -purge
-abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-show
-```
+**Synthesis Output:** Three-input AND gate
 ![Synth Opt Check](images/synth_opt_check3.png)
-*Synthesis produce a three input AND gate*
 
 ---
 
-### 4️⃣ opt_check4.v
+### 4️⃣ `opt_check4.v`
 
 ```verilog
 module opt_check4 (input a , input b , input c , output y);
@@ -149,24 +152,14 @@ module opt_check4 (input a , input b , input c , output y);
 endmodule
 ```
 
-**Aim:**
-📷 ![Aim](images/aim_optcheck4.png)
-**Synthesis Commands:** 
-```tcl
-yosys
-read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-read_verilog opt_check4.v
-synth -top opt_check4
-opt_clean -purge
-abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-show
-```
-![Synth Opt Check](images/synth_opt_check4.png)
-*Synthesis produce a two input xnor gate*
+**Observation:** Complex conditional logic reduced to minimal gates.
+
+**Synthesis Output:** Two-input XNOR gate
+![Synth Opt Check](images/synth_optcheck4.png)
 
 ---
 
-### 5️⃣ multiple_module_opt1.v
+### 5️⃣ `multiple_module_opt1.v`
 
 ```verilog
 module sub_module1(input a , input b , output y);
@@ -186,12 +179,14 @@ assign y = c | (b & n1);
 endmodule
 ```
 
+**Observation:** Hierarchical optimization reduces unnecessary intermediate gates.
+
 📷 Netlist
 ![synth output](images/synth_multiple_module_opt.png)
 
 ---
 
-### 6️⃣ multiple_module_opt2.v
+### 6️⃣ `multiple_module_opt2.v`
 
 ```verilog
 module sub_module(input a , input b , output y);
@@ -210,11 +205,14 @@ endmodule
 📷 Netlist
 ![synth Opt 2](images/synth_multiple_module_opt2.png)
 
+**Takeaway:** Modular design helps in better synthesis and resource optimization.
+
 ---
 
-### 🔹 Sequential Logic Optimization Examples
+## 🔹 Sequential Logic Optimization Examples
 
-#### DFF Const 1
+### DFF Const 1
+
 ```verilog
 module dff_const1(input clk, input reset, output reg q);
 always @(posedge clk, posedge reset)
@@ -224,18 +222,22 @@ begin
 	else
 		q <= 1'b1;
 end
-
 endmodule
 ```
 
+**Observation:** Single flip-flop captures sequential behavior.
+
+📷 Simulation & Synthesis:
 ![DFF Const 1 Simulation](images/dff_const1_tb.png)
 ![Synth DFF1](images/synth_dff1.png)
 ![stat DFF1](images/stat_dff1.png)
-*it tells that our design has 1 flop*
+*Design has 1 flip-flop*
 
-#### DFF Const 2
+---
+
+### DFF Const 2
+
 ```verilog
-
 module dff_const2(input clk, input reset, output reg q);
 always @(posedge clk, posedge reset)
 begin
@@ -244,104 +246,35 @@ begin
 	else
 		q <= 1'b1;
 end
-
 endmodule
 ```
 
-![DFF Const 2 Simulation](images/dff_const2_tb.png)
+**Observation:** Q remains constant; no flip-flops required.
 
-![stat DFF2](images/stat_dff2.png)
-*it does not have a flop*
+📷 Synthesis:
+![STAT DFF2](images/stat_dff2.png)
 ![Synth DFF2](images/synth_dff2.png)
-*Q always 1 so no need for a flop*
-
-#### DFF Const 3
-```verilog
-module dff_const3(input clk, input reset, output reg q);
-reg q1;
-
-always @(posedge clk, posedge reset)
-begin
-	if(reset)
-	begin
-		q <= 1'b1;
-		q1 <= 1'b0;
-	end
-	else
-	begin
-		q1 <= 1'b1;
-		q <= q1;
-	end
-end
-
-endmodule
-```
-![DFF Const 3 Simulation](images/dff_const3_tb.png)
-![STAT DFF3](images/stat_dff3.png)
-![Synth DFF3](images/synth_dff3.png)
-
-
-#### DFF Const 4
-```verilog
-module dff_const4(input clk, input reset, output reg q);
-reg q1;
-
-always @(posedge clk, posedge reset)
-begin
-	if(reset)
-	begin
-		q <= 1'b1;
-		q1 <= 1'b1;
-	end
-	else
-	begin
-		q1 <= 1'b1;
-		q <= q1;
-	end
-end
-
-endmodule
-```
-
-![DFF Const 4 Simulation](images/dff_const4_tb.png)
-Q is always 1
-![STAT DFF4](images/stat_dff4.png)
-![Synth DFF4](images/synth_dff4.png)
-
-#### DFF Const 5
-```verilog
-module dff_const5(input clk, input reset, output reg q);
-reg q1;
-
-always @(posedge clk, posedge reset)
-begin
-	if(reset)
-	begin
-		q <= 1'b0;
-		q1 <= 1'b0;
-	end
-	else
-	begin
-		q1 <= 1'b1;
-		q <= q1;
-	end
-end
-
-endmodule
-```
-
-![DFF Const 5 Simulation](images/dff_const5_tb.png)
-Q is 0 during reset, remains 0 at first clk edge after reset, then becomes 1 at second clk edge, due to 1-cycle delay from q1
-![STAT DFF5](images/stat_dff5.png)
-![Synth DFF5](images/synth_dff5.png)
-*It has 2 flops*
-
 
 ---
 
-### 🔹 Counter Optimizations
+### DFF Const 3, 4, 5
 
-#### Counter Opt
+*Modules demonstrate sequential logic propagation and optimization.*
+
+📷 Simulation & Synthesis outputs included in images:
+
+* DFF3: ![DFF3](images/dff_const3_tb.png)
+* DFF4: ![DFF4](images/dff_const4_tb.png)
+* DFF5: ![DFF5](images/dff_const5_tb.png)
+
+**Observation:** DFF5 uses 2 flip-flops due to sequential propagation; others optimized depending on constant behavior.
+
+---
+
+## 🔹 Counter Optimizations
+
+### Counter Opt
+
 ```verilog
 module counter_opt (input clk , input reset , output q);
 reg [2:0] count;
@@ -354,30 +287,21 @@ begin
 	else
 		count <= count + 1;
 end
-
 endmodule
 ```
-From code we can know that it is a 3bit up counter.
 
-![counter_opt1](images/aim-counter1.png)
+**Observation:** 3-bit up-counter; Yosys optimizes the number of flip-flops.
 
+📷 Outputs:
+![Counter Aim](images/aim-counter1.png)
 ![Counter TB](images/count_opt_tb.png)
 ![Stat Counter](images/stat_count_opt1.png)
-*It is a 3 bit counter but it has 1 flip flop*
-
 ![Synth Counter](images/synth_counter_opt1.png)
 
-
-#### Counter Opt2
-
-![Counter Opt2 TB](images/count_opt2_tb.png)
-![Stat Counter](images/stat_count_opt2.png)
-
-![Synth Counter](images/synth_counter_opt2.png)
-
+**Takeaway:** Sequential optimization reduces resource usage while maintaining correct counting.
 
 ---
 
 
-
+```
 
