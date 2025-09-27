@@ -60,7 +60,16 @@ endmodule
 ```
 
 **Aim:**
-![Aim](images/opt_check.v.png)
+![Aim](images/aim_optcheck.png)
+**Simulation Commands**
+```tcl
+iverilog opt_check.v tb_opt_check.v
+./a.out
+gtkwave tb_opt_check.vcd
+
+```
+![Sim Opt Check](images/tb_opt_check.png)
+
 
 **Synthesis Commands:**
 
@@ -76,6 +85,7 @@ show
 
 📷 Synthesized Netlist
 ![Synth Opt Check](images/synth_opt_check.png)
+*Synthesis produce a AND gate*
 
 ---
 
@@ -88,10 +98,21 @@ endmodule
 ```
 
 **Aim:**
-📷 ![Aim](images/synth_opt_check2.png)
+📷 ![Aim](images/aim_optcheck2.png)
 
-**Synthesis Commands:** (same as above with `opt_check2.v`)
 
+**Synthesis Commands:** 
+```tcl
+yosys
+read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check2.v
+synth -top opt_check2
+opt_clean -purge
+abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![Synth Opt Check](images/synth_opt_check2.png)
+*Synthesis produce a OR gate*
 ---
 
 ### 3️⃣ opt_check3.v
@@ -103,7 +124,20 @@ endmodule
 ```
 
 **Aim:**
-📷 ![Aim](images/synth_opt_check3.png)
+📷 ![Aim](images/aim_optcheck3.png)
+
+**Synthesis Commands:** 
+```tcl
+yosys
+read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check3.v
+synth -top opt_check3
+opt_clean -purge
+abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![Synth Opt Check](images/synth_opt_check3.png)
+*Synthesis produce a three input AND gate*
 
 ---
 
@@ -116,7 +150,19 @@ endmodule
 ```
 
 **Aim:**
-📷 ![Aim](images/synth_opt_check4.png)
+📷 ![Aim](images/aim_optcheck4.png)
+**Synthesis Commands:** 
+```tcl
+yosys
+read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog opt_check4.v
+synth -top opt_check4
+opt_clean -purge
+abc -liberty ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![Synth Opt Check](images/synth_opt_check4.png)
+*Synthesis produce a two input xnor gate*
 
 ---
 
@@ -141,7 +187,7 @@ endmodule
 ```
 
 📷 Netlist
-![Multiple Opt 1](images/netlist_multiple_module_opt.png)
+![synth output](images/synth_multiple_module_opt.png)
 
 ---
 
@@ -162,66 +208,176 @@ endmodule
 ```
 
 📷 Netlist
-![Multiple Opt 2](images/netlist_multiple_module_opt2.png)
+![synth Opt 2](images/synth_multiple_module_opt2.png)
 
 ---
 
 ### 🔹 Sequential Logic Optimization Examples
 
 #### DFF Const 1
+```verilog
+module dff_const1(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b0;
+	else
+		q <= 1'b1;
+end
+
+endmodule
+```
 
 ![DFF Const 1 Simulation](images/dff_const1_tb.png)
 ![Synth DFF1](images/synth_dff1.png)
-![ABC DFF1](images/abc_dff1.png)
+![stat DFF1](images/stat_dff1.png)
+*it tells that our design has 1 flop*
 
 #### DFF Const 2
+```verilog
+
+module dff_const2(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b1;
+	else
+		q <= 1'b1;
+end
+
+endmodule
+```
 
 ![DFF Const 2 Simulation](images/dff_const2_tb.png)
+
+![stat DFF2](images/stat_dff2.png)
+*it does not have a flop*
 ![Synth DFF2](images/synth_dff2.png)
-![ABC DFF2](images/abc_dff2.png)
+*Q always 1 so no need for a flop*
 
 #### DFF Const 3
+```verilog
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
 
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
 ![DFF Const 3 Simulation](images/dff_const3_tb.png)
+![STAT DFF3](images/stat_dff3.png)
 ![Synth DFF3](images/synth_dff3.png)
-![ABC DFF3](images/abc_dff3.png)
+
 
 #### DFF Const 4
+```verilog
+module dff_const4(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b1;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
 
 ![DFF Const 4 Simulation](images/dff_const4_tb.png)
+Q is always 1
+![STAT DFF4](images/stat_dff4.png)
 ![Synth DFF4](images/synth_dff4.png)
 
 #### DFF Const 5
+```verilog
+module dff_const5(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b0;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
 
 ![DFF Const 5 Simulation](images/dff_const5_tb.png)
+Q is 0 during reset, remains 0 at first clk edge after reset, then becomes 1 at second clk edge, due to 1-cycle delay from q1
+![STAT DFF5](images/stat_dff5.png)
 ![Synth DFF5](images/synth_dff5.png)
-![ABC DFF5](images/abc_dff5.png)
+*It has 2 flops*
+
 
 ---
 
 ### 🔹 Counter Optimizations
 
 #### Counter Opt
+```verilog
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = count[0];
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
+From code we can know that it is a 3bit up counter.
+
+![counter_opt1](images/aim-counter1.png)
 
 ![Counter TB](images/count_opt_tb.png)
-![Synth Counter](images/synth_counter_opt1.png)
 ![Stat Counter](images/stat_count_opt1.png)
-![ABC Counter](images/abc_counter_opt1.png)
+*It is a 3 bit counter but it has 1 flip flop*
+
+![Synth Counter](images/synth_counter_opt1.png)
+
 
 #### Counter Opt2
 
 ![Counter Opt2 TB](images/count_opt2_tb.png)
+![Stat Counter](images/stat_count_opt2.png)
+
+![Synth Counter](images/synth_counter_opt2.png)
+
 
 ---
 
-## ✅ Summary
-
-* **Combinational optimization** reduces redundant logic (constant propagation, Boolean reduction).
-* **Sequential optimization** simplifies registers and FSMs.
-* **Yosys + Sky130 library** used for synthesis.
-* **GTKWave** used for simulation verification.
-
----
 
 
 
