@@ -307,7 +307,7 @@ end
 ```
 
 
-## simulation:
+## **simulation:**
 ```
 iverilog partial_case_assign.v tb_partial_case_assign.v
 ./a.out
@@ -315,7 +315,7 @@ gtkwave tb_partial_case_assign.vcd
 ```
 ![rtl_testbench](images/tb_partialcase.png)
 
-##synthesis:
+## **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -328,7 +328,7 @@ show
 
 
 ---
-🔹 FOR vs FOR-GENERATE Loops
+** FOR vs FOR-GENERATE Loops**
 1. FOR Loop
 
 Used inside always blocks.
@@ -358,9 +358,9 @@ end
 end
 endmodule
 ```
-##Simulation output:
+## **Simulation output:**
 ![rtl_testbench](images/mux_generate_tb.png)
-##Synthesis output:
+## **Synthesis output:**
 ![synthesis output](images/synth-muxgen.png)
 **It generate 4x1 MUX**
 ---
@@ -390,12 +390,12 @@ endmodule
 
 
 ```
-##Simulation output:##
+## **Simulation output:**
 ![rtl_testbench](images/demux_case.png)
-##Synthesis output:##
+## **Synthesis output:**
 ![synthesis output](images/synth_demuxcase.png)
 ---
-code:
+## **code:**
 ```
 module demux_generate (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
 reg [7:0]y_int;
@@ -415,9 +415,9 @@ endmodule
 
 
 ```
-##Simulation output:
+## **Simulation output:**
 ![rtl_testbench](images/tb_demuxgen.png)
-##Synthesis output:
+## **Synthesis output:**
 ![synthesis output](images/synth_demuxgen.png)
 ---
 
