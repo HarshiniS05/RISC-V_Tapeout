@@ -101,8 +101,8 @@ endcase
 ```
 
 ---
-## Examples 
-### incomplete if
+## **Examples** 
+### **incomplete if**
 code:
 ```verilog
 module incomp_if (input i0 , input i1 , input i2 , output reg y);
@@ -115,7 +115,7 @@ endmodule
 ```
 ![design](images/design_incompif.png)
 
-## simulation:
+## **simulation:**
 ```
 iverilog incomp_if.v tb_incomp_if.v
 ./a.out
@@ -123,7 +123,7 @@ gtkwave tb_incomp_if.vcd
 ```
 ![rtl_testbench](images/tb_incompif.png)
 
-##synthesis:
+## **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -136,7 +136,7 @@ show
 
 
 ---
-### incomplete if2
+### **incomplete if2**
 code:
 ```verilog
 module incomp_if2 (input i0 , input i1 , input i2 , input i3, output reg y);
@@ -152,7 +152,7 @@ endmodule
 ```
 ![design](images/design_incompif2.png)
 
-## simulation:
+## **simulation:**
 ```
 iverilog incomp_if2.v tb_incomp_if2.v
 ./a.out
@@ -160,7 +160,7 @@ gtkwave tb_incomp_if2.vcd
 ```
 ![rtl_testbench](images/tb_incompif2.png)
 
-##synthesis:
+## **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -172,7 +172,7 @@ show
 ![synthesis output](images/synth_incompif2.png)
 
 ---
-### incomp_case
+### **incomp_case**
 code:
 ```verilog
 module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
@@ -187,7 +187,7 @@ endmodule
 ```
 ![design](images/design_incompcase.png)
 
-## simulation:
+## **simulation:**
 ```
 iverilog incomp_case.v tb_incomp_case.v
 ./a.out
@@ -195,7 +195,7 @@ gtkwave tb_incomp_if.vcd
 ```
 ![rtl_testbench](images/tb_incompcase.png)
 
-##synthesis:
+## **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -209,7 +209,7 @@ show
 
 ---
 
-### comp_case
+### **comp_case**
 code:
 ```verilog
 module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
@@ -225,7 +225,7 @@ endmodule
 ```
 ![design](images/design_compcase.png)
 
-## simulation:
+## **simulation:**
 ```
 iverilog comp_case.v tb_comp_case.v
 ./a.out
@@ -233,7 +233,7 @@ gtkwave tb_comp_if.vcd
 ```
 ![rtl_testbench](images/tb_compcase.png)
 
-##synthesis:
+## **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -247,7 +247,7 @@ show
 
 ---
 
-### bad_case
+### **bad_case**
 code:
 ```verilog
 module bad_case (input i0 , input i1, input i2, input i3 , input [1:0] sel, output reg y);
@@ -266,7 +266,7 @@ endmodule
 ```
 
 
-## simulation:
+## **simulation:**
 ```
 iverilog bad_case.v tb_bad_case.v
 ./a.out
@@ -274,7 +274,7 @@ gtkwave tb_bad_case.vcd
 ```
 ![rtl_testbench](images/tb_badcase.png)
 
-##synthesis:
+##  **synthesis:**
 ```tcl
 yosys
 read_liberty -lib ../VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
@@ -285,7 +285,7 @@ show
 ```
 ![synthesis output](images/synth_badcase.png)
 ---
-### partial_case_assign
+### **partial_case_assign**
 code:
 ```verilog
 module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg y , output reg x);
@@ -364,7 +364,7 @@ endmodule
 ![synthesis output](images/synth-muxgen.png)
 **It generate 4x1 MUX**
 ---
-##DEMUX
+##DEMUX##
 code:
 ```
 module demux_case (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
@@ -390,9 +390,9 @@ endmodule
 
 
 ```
-##Simulation output:
+##Simulation output:##
 ![rtl_testbench](images/demux_case.png)
-##Synthesis output:
+##Synthesis output:##
 ![synthesis output](images/synth_demuxcase.png)
 ---
 code:
